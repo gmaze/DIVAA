@@ -95,7 +95,7 @@ $.getJSON('data/aviso.json', function (data) {
 });
 
 //AVISO MDT
-$.getJSON('https://storage.googleapis.com/divaa/aviso_mdt.json', function (data) {
+$.getJSON('data/aviso_mdt.json', function (data) {
   var velocityLayer2 = L.velocityLayer({
     displayValues: true,
     displayOptions: {
