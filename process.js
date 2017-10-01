@@ -39,7 +39,7 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([40, -45], 4);
+  map.setView([0, -45], 0);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -62,13 +62,13 @@ var mapStuff = initDemoMap();
 var map = mapStuff.map;
 // MENU
 var layerControl = mapStuff.layerControl;
-//ICON FOR SELECTED FLOAT
+// ICON FOR SELECTED FLOAT
 ico0 = {iconShape: 'doughnut', borderWidth: 4, borderColor: '#50f308'};
 var curmarker = L.marker([0,0],{icon: L.BeautifyIcon.icon(ico0)});
-//TRAJ LAYER, EMPTY AT START
+// TRAJ LAYER, EMPTY AT START
 var majaxLayer=L.layerGroup();
 map.addLayer(majaxLayer);
-//SIDE PANEL
+// SIDE PANEL
 var sidebar = L.control.sidebar('sidebar', {
   closeButton: true,
   position: 'left',
@@ -77,7 +77,7 @@ var sidebar = L.control.sidebar('sidebar', {
 map.addControl(sidebar);
 
 //DATA LAYERS
-// AVISO
+//AVISO
 $.getJSON('data/aviso.json', function (data) {
   var velocityLayer1 = L.velocityLayer({
     displayValues: true,
@@ -94,12 +94,12 @@ $.getJSON('data/aviso.json', function (data) {
   layerControl.addOverlay(velocityLayer1, htmlName1);
 });
 
-// AVISO MDT
-$.getJSON('data/aviso_mdt.json', function (data) {
+//AVISO MDT
+$.getJSON('https://storage.googleapis.com/divaa/aviso_mdt.json', function (data) {
   var velocityLayer2 = L.velocityLayer({
     displayValues: true,
     displayOptions: {
-      velocityType : 'Aviso Surface currents',
+      velocityType : 'Climatology Aviso Surface currents',
       displayPosition: 'bottomleft',
       displayEmptyString: 'No current data'
     },
@@ -107,11 +107,11 @@ $.getJSON('data/aviso_mdt.json', function (data) {
     maxVelocity: 1,
     velocityScale: 0.3
   });
-  htmlName2='<font color="red">Aviso mdt2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
 });
 
-// ANDRO
+//ANDRO
 $.getJSON('data/andro_gm.json', function (data) {
   var velocityLayer3 = L.velocityLayer({
     displayValues: true,
@@ -131,7 +131,7 @@ $.getJSON('data/andro_gm.json', function (data) {
 
 //ARGO DAY
 ico1 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#fdfe02'};
-ico2 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#ffffff'};
+ico2 = {iconShape: 'circle-dot', borderWidth: 2, borderColor: '#ffffff'};
 ico3 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#7de0ba'};
 
 var mapdata=Data_ARGO;
