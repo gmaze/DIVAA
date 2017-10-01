@@ -39,16 +39,16 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([40, -20], 4);
+  map.setView([40, -45], 4);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
   var credctrl = L.controlCredits({
-  image: "dist/lops.png",
-  link: "http://www.umr-lops.fr/",
-  text: "<center><b>Laboratoire<br>d'Oceanographie<br>Physique<br>et Spatiale<br>IFREMER 2017</b></center>",
-  width: 96,
-  height: 88
+  image: "dist/ArgoFR_Logo_80.png",
+  link: "http://www.argo-france.fr/",
+  text: "<center><b>Argo<br>France</b></center>",
+  width: 80,
+  height: 85
   }).addTo(map);
 //INIT RETURN FUNCTION
   return {
