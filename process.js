@@ -39,7 +39,7 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([0, -45], 0);
+  map.setView([0, -45], 2);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -90,7 +90,7 @@ $.getJSON('data/aviso.json', function (data) {
     maxVelocity: 1,
     velocityScale: 0.3
   });
-  htmlName1='<font color="red">Aviso Currents: '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
   map.addLayer(velocityLayer1); //Default display when page loads
 });
@@ -149,7 +149,7 @@ for (var i = 0; i < mapdata.length; i++)
   marker.on('click',L.bind(SubMarkerClick,null,mapdata[i]));
   marker.addTo(argomarkers);
 };
-htmlName4='<font color="blue">Argo floats : '+WDate+'</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home/"><img src="dist/info.png" height="15" width="15"></a>'
+htmlName4='<font color="blue">Argo profiles from '+WDate+'</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home/"><img src="dist/info.png" height="15" width="15"></a>'
 layerControl.addOverlay(argomarkers, htmlName4);
 
 //ARGO 7 DAYS
@@ -167,7 +167,7 @@ for (var i = 0; i < mapdata2.length; i++)
   marker.on('click',L.bind(SubMarkerClick,null,mapdata2[i]));
   marker.addTo(argomarkers2);
 };
-htmlName5='<font color="blue">Argo floats : 7 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
+htmlName5='<font color="blue">Argo profiles: last 7 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
 layerControl.addOverlay(argomarkers2, htmlName5);
 map.addLayer(argomarkers2);
 
