@@ -1,2 +1,8 @@
 
 \.idea/
+
+bin/data2ovh\.py
+
+bin/data2gstore\.sh
+
+data/toto\.js

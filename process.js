@@ -92,6 +92,7 @@ $.getJSON('data/aviso.json', function (data) {
   });
   htmlName1='<font color="red">Aviso Currents: '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
+  map.addLayer(velocityLayer1); //Default display when page loads
 });
 
 //AVISO MDT
@@ -121,12 +122,12 @@ $.getJSON('data/andro_gm.json', function (data) {
       displayEmptyString: 'No velocity data'
     },
     data: data,
-    maxVelocity: 1,
-    velocityScale: 0.3
+    maxVelocity: 0.2,
+    velocityScale: 0.1
   });
   htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
-  map.addLayer(velocityLayer3); //Default display when page loads
+  // map.addLayer(velocityLayer3); //Default display when page loads
 });
 
 //ARGO DAY

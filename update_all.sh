@@ -3,15 +3,18 @@
 #2017
 ################
 cd bin/
+
 #ARGO INDEX
 #wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt
 wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_this_week_prof.txt
 #
+
 #### ARGO7
 echo -n "argo 7 last days ... "
 ./argo_n.sh
 echo "ok"
 echo ""
+
 ### AVISO CURRENTS
 echo -n "aviso currents last file : "
 #FIND LAST AVISO FILE
@@ -25,6 +28,7 @@ echo -n "... "
 ./aviso2json.sh $flatest
 echo "ok"
 echo ""
+
 ### ARGO DATE
 echo -n "argo $dlatest ... "
 ./argo_pr.sh $dlatest
@@ -33,9 +37,11 @@ echo "ok"
 echo "var WDate = \"$dlatest\";"  > ../data/WDate.js
 #clear
 rm ar_index_this_week_prof.txt
-#cp to webspace
+
+### copy to webspace
 # cp ../data/ARGO7.js /home/triagoz/webapp/kbalem/data
 # cp ../data/ARGO.js /home/triagoz/webapp/kbalem/data
 # cp ../data/WDate.js /home/triagoz/webapp/kbalem/data
 # cp ../data/aviso.json /home/triagoz/webapp/kbalem/data
+./data2ovh.py
 ./data2gstore.sh
