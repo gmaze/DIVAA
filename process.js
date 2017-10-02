@@ -39,7 +39,7 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([0, -45], 2);
+  map.setView([0, -45], 3);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -122,8 +122,8 @@ $.getJSON('data/andro_gm.json', function (data) {
       displayEmptyString: 'No velocity data'
     },
     data: data,
-    maxVelocity: 0.2,
-    velocityScale: 0.1
+    maxVelocity: 1,
+    velocityScale: 0.3
   });
   htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
@@ -197,7 +197,7 @@ function SubMarkerClick(smarker) {
   sidebar.setContent("<b>Float </b>: "+ pl +
   "<br><b>Profile date </b>: " + ti +
   "<br><b>DAC </b>: " + inst +
-  "<br><b><a href='" + graphurl + " target='blank'>Access profile data (erddap Ifremer)</a></b> " +
+  "<br><b><a href='" + graphurl + "' target='blank'>Access profile data (erddap Ifremer)</a></b> " +
   "<br><b>TEMPERATURE PROFILE</b>" +
   "<br><img src=\""+tempurl+"\" alt=\"not available\"><br>" +
   "<br><b>PRACTICAL SALINITY PROFILE</b>" +
