@@ -1,7 +1,9 @@
 body {
     margin: 0px;
 }
-
+p {
+    display: inline;
+}
 #heading {
     text-align: center;
     padding: 20px;
@@ -9,9 +11,9 @@ body {
     color: #CCC;
 }
 
-a {
+/*a {
     color: #3388ff;
-}
+}*/
 
 #map {
     position: absolute;
