@@ -51,7 +51,7 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([0, -45], 4);
+  map.setView([0, -45], 3);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -120,7 +120,7 @@ $.getJSON('data/aviso.json', function (data) {
     data: data,
     maxVelocity: 1,
     velocityScale: 0.3,
-	colorScale: palette('cb-YlGn', 10)
+	colorScale: palette('tol-sq', 10)
   });
   htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
@@ -139,7 +139,7 @@ $.getJSON('data/aviso_mdt.json', function (data) {
     data: data,
     maxVelocity: 1,
     velocityScale: 0.3,
-	colorScale: palette('cb-Purples', 10)
+	colorScale: palette('tol-sq', 10)
   });
   htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
