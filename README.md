@@ -8,20 +8,6 @@ CODE DEDICATED TO VISUALIZE ARGO DATA COMBINED TO AVISO SURFACE CURRENT AND ANDR
 BASED ON LEAFLET-VELOCITY  
 bin/ & update_all.csh do not appear in web front  
 
-Requirements
-------------
-DIVAA needs json_reformat tool from yajl (https://lloyd.github.io/yajl/)
+This fork is dedicated to the Argo-France program mapping.
 
-On Ubuntu:
-```
-apt-get install yajl-tools
-```
-On RHEL/Centos:
-```
-dnf install yajl-devel
-```
-
-DIVAA Python requirements was referenced inside requirements file. Please pip this requirements file before run.
-```
-pip install -r requirements.txt
-```
+Production version is available at http://map.argo-france.fr
