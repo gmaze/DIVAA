@@ -35,14 +35,14 @@ function initDemoMap(){
 
 //BASE TILE GROUP LAYER
   var baseLayers = {
-    "Oceans ": Esri_Oceans,
     "Satellite": Esri_WorldImagery,
+    "Oceans ": Esri_Oceans,
     "Grey ": Esri_DarkGreyCanvas,
     "Topo ": Esri_Topo
   };
 //MAP STRUCTURE
   var map = L.map('map', {
-    layers: [ Esri_Oceans ],
+    layers: [ Esri_WorldImagery ],
     minZoom : 2,
     worldCopyJump: true,
     inertia: false
@@ -51,7 +51,7 @@ function initDemoMap(){
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([0, -45], 3);
+  map.setView([20, -45], 3);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -89,12 +89,13 @@ ico1 = {iconShape: 'doughnut', iconSize: [10,10], iconAnchor: [5,5], borderWidth
 // ico2 = {iconShape: 'circle-dot', borderWidth: 3, borderColor: '#ffffff'};
 // ico2 = {icon: 'beautify', iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#fff'};
 // ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#33ff77'}
-ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#999'}
+// ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#999'}
+ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#ccc'}
 
 //ICON FOR FLOAT TRAJECTORY:
 // ico3 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#7de0ba'};
 // ico3 = {icon: 'beautify', iconAnchor: [0,0], iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#7de0ba'};
-ico3 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#faa'}
+ico3 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#7de0ba'}
 
 //TRAJ LAYER, EMPTY AT START
 var majaxLayer=L.layerGroup();
@@ -119,8 +120,8 @@ $.getJSON('data/aviso.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3,
-	colorScale: palette('tol-sq', 10)
+    velocityScale: 0.3
+	// colorScale: palette('tol-sq', 10)
   });
   htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
@@ -138,8 +139,8 @@ $.getJSON('data/aviso_mdt.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3,
-	colorScale: palette('tol-sq', 10)
+    velocityScale: 0.3
+	// colorScale: palette('tol-sq', 10)
   });
   htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
@@ -156,8 +157,8 @@ $.getJSON('data/andro_gm.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3,
-	colorScale: palette('tol-sq', 10)
+    velocityScale: 0.3
+	// colorScale: palette('tol-sq', 10)
   });
   htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
@@ -320,8 +321,8 @@ function SubMarkerClick(smarker) {
                       markaj.on('click',L.bind(SubMarkerClick,null,markstruct));
                       markaj.addTo(majaxLayer);
                     };
-                    // var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 2}).addTo(majaxLayer);
-                    var mpoly = L.polyline(mlatlon, {color: '#f00', smoothFactor: 0}).addTo(majaxLayer);
+                    var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 0}).addTo(majaxLayer);
+                    // var mpoly = L.polyline(mlatlon, {color: '#f00', smoothFactor: 0}).addTo(majaxLayer);
                   },
       type: 'GET'
     });
