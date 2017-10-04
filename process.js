@@ -23,23 +23,35 @@ function initDemoMap(){
     maxZoom: 20,
     ext: 'png'
   });
+//
+  var Esri_Oceans = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Sources: Esri, GEBCO, NOAA, National Geographic, DeLorme, HERE, Geonames.org, and other contributors'
+  });
+  var Esri_Topo = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Sources: Esri, HERE, DeLorme, Intermap, increment P Corp., GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN,' + 
+	' Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), swisstopo, MapmyIndia, &copy;  OpenStreetMap' + 
+	' contributors, and the GIS User Community'
+  });
+
 //BASE TILE GROUP LAYER
   var baseLayers = {
+    "Oceans ": Esri_Oceans,
     "Satellite": Esri_WorldImagery,
     "Grey ": Esri_DarkGreyCanvas,
-    "Black" : Stamen_Toner
+    "Topo ": Esri_Topo
   };
 //MAP STRUCTURE
   var map = L.map('map', {
-    layers: [ Esri_WorldImagery ],
-    minZoom : 3,
+    layers: [ Esri_Oceans ],
+    minZoom : 2,
     worldCopyJump: true,
     inertia: false
   });
+
 //MENU CREATION
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
-  map.setView([0, -45], 3);
+  map.setView([0, -45], 4);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR LOPS LOGO
@@ -62,9 +74,29 @@ var mapStuff = initDemoMap();
 var map = mapStuff.map;
 // MENU
 var layerControl = mapStuff.layerControl;
+
 //ICON FOR SELECTED FLOAT
-ico0 = {iconShape: 'doughnut', borderWidth: 4, borderColor: '#50f308'};
+// ico0 = {iconShape: 'doughnut', borderWidth: 4, borderColor: '#50f308'};
+ico0 = {iconShape: 'doughnut', iconSize: [16,16], iconAnchor: [8,8], borderWidth: 5, borderColor: '#f00', backgroundColor: '#f99'}
 var curmarker = L.marker([0,0],{icon: L.BeautifyIcon.icon(ico0)});
+
+//ICON FOR IFREMER FLOAT:
+// ico1 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#fdfe02'};
+// ico1 = {icon: 'beautify', iconSize: [11,11], borderWidth: 1, borderColor: '#000', backgroundColor: '#fdfe02'};
+ico1 = {iconShape: 'doughnut', iconSize: [10,10], iconAnchor: [5,5], borderWidth: 1, borderColor: '#000', backgroundColor: '#fdfe02'}
+
+//ICON FOR ANY OTHER FLOAT:
+// ico2 = {iconShape: 'circle-dot', borderWidth: 3, borderColor: '#ffffff'};
+// ico2 = {icon: 'beautify', iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#fff'};
+// ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#33ff77'}
+ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#999'}
+
+//ICON FOR FLOAT TRAJECTORY:
+// ico3 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#7de0ba'};
+// ico3 = {icon: 'beautify', iconAnchor: [0,0], iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#7de0ba'};
+ico3 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#faa'}
+
+
 //TRAJ LAYER, EMPTY AT START
 var majaxLayer=L.layerGroup();
 map.addLayer(majaxLayer);
@@ -130,10 +162,6 @@ $.getJSON('data/andro_gm.json', function (data) {
 });
 
 //ARGO DAY
-ico1 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#fdfe02'};
-ico2 = {iconShape: 'circle-dot', borderWidth: 2, borderColor: '#ffffff'};
-ico3 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#7de0ba'};
-
 var mapdata=Data_ARGO;
 var argomarkers = L.layerGroup();
 for (var i = 0; i < mapdata.length; i++)
@@ -199,8 +227,8 @@ function SubMarkerClick(smarker) {
   curmarker.addTo(map);
   //CLEAR ANY EXISTING TRAJECTORIES IF CLICK OUTSIDE THE PLOTTED TRAJECTORY
   if(smarker.Platform!=pl){
-  majaxLayer.clearLayers();
-  insTraj=0;
+	majaxLayer.clearLayers();
+	insTraj=0;
   }
   //ERDDAP URLs
   ti=smarker.Time;
@@ -251,13 +279,14 @@ function SubMarkerClick(smarker) {
   });
 
   //
-  sidebar.setContent("<b>FLOAT WMO : </b>"+ pl + "<br>" +
-  "<b>PROFILE DATE : </b>" + ti.substr(0,4)+"."+ti.substr(4,2)+"."+ti.substr(6,2)+"  "+ti.substr(8,2)+":"+ti.substr(10,2)+":"+ti.substr(12,2)+ "<br>" +
-  "<b>DAC : </b>" + inst + "<br>" +
+  sidebar.setContent("<b>FLOAT WMO : </b><a href='http://www.ifremer.fr/argoMonitoring/float/"+ pl + "' target='blank'>" + pl + "</a><br>" +
+  "<b><span class='glyphicon glyphicon-important-day'></span>PROFILE DATE : </b>" + ti.substr(0,4)+"."+ti.substr(4,2)+"."+ti.substr(6,2)+"  "+ti.substr(8,2)+":"+ti.substr(10,2)+":"+ti.substr(12,2)+ "<br>" +
+  "<b><span class='glyphicon glyphicon-database'></span>DAC : </b>" + inst + "<br>" +
   "<b>PROJECT : </b><span id=\"ajproject\"></span>" + "<br>" +
-  "<b>PI : </b><span id=\"ajpi\"></span>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-nameplate'></span>PI : </b><span id=\"ajpi\"></span>" + "<br>" +
   "<b>FLOAT MODEL : </b><span id=\"ajmodel\"></span>" + "<br>" +
-  "<b><a href='" + graphurl + "' target='blank'>CLICK HERE TO ACCESS PROFILE DATA (erddap Ifremer)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='" + graphurl + "' target='blank'>ACCESS TO PROFILE DATA (erddap Ifremer)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='http://www.ifremer.fr/argoMonitoring/float/" + pl + "' target='blank'>ACCESS TO FLOAT MONITORING DATA (Coriolis)</a></b>" + "<br>" +
   //HIGHCHARTS
   "<br><div id=\"containerT\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>" +
   "<br><div id=\"containerS\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>"
@@ -289,7 +318,8 @@ function SubMarkerClick(smarker) {
                       markaj.on('click',L.bind(SubMarkerClick,null,markstruct));
                       markaj.addTo(majaxLayer);
                     };
-                    var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 2}).addTo(majaxLayer);
+                    // var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 2}).addTo(majaxLayer);
+                    var mpoly = L.polyline(mlatlon, {color: '#f00', smoothFactor: 0}).addTo(majaxLayer);
                   },
       type: 'GET'
     });

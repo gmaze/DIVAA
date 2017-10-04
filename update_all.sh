@@ -39,9 +39,5 @@ echo "var WDate = \"$dlatest\";"  > ../data/WDate.js
 rm ar_index_this_week_prof.txt
 
 ### copy to webspace
-# cp ../data/ARGO7.js /home/triagoz/webapp/kbalem/data
-# cp ../data/ARGO.js /home/triagoz/webapp/kbalem/data
-# cp ../data/WDate.js /home/triagoz/webapp/kbalem/data
-# cp ../data/aviso.json /home/triagoz/webapp/kbalem/data
 ./data2ovh.py
 ./data2gstore.sh
