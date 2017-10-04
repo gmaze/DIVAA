@@ -10,4 +10,4 @@ bin/ & update_all.csh do not appear in web front
 
 This fork is dedicated to the Argo-France program mapping.
 
-Production version is available at map.argo-france.fr
+Production version is available at http://map.argo-france.fr
