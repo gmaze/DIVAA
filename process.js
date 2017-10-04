@@ -96,7 +96,6 @@ ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 
 // ico3 = {icon: 'beautify', iconAnchor: [0,0], iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#7de0ba'};
 ico3 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#faa'}
 
-
 //TRAJ LAYER, EMPTY AT START
 var majaxLayer=L.layerGroup();
 map.addLayer(majaxLayer);
@@ -120,7 +119,8 @@ $.getJSON('data/aviso.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3
+    velocityScale: 0.3,
+	colorScale: palette('cb-YlGn', 10)
   });
   htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
@@ -138,7 +138,8 @@ $.getJSON('data/aviso_mdt.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3
+    velocityScale: 0.3,
+	colorScale: palette('cb-Purples', 10)
   });
   htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
@@ -155,7 +156,8 @@ $.getJSON('data/andro_gm.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3
+    velocityScale: 0.3,
+	colorScale: palette('tol-sq', 10)
   });
   htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
