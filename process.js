@@ -90,7 +90,7 @@ ico1 = {iconShape: 'doughnut', iconSize: [10,10], iconAnchor: [5,5], borderWidth
 // ico2 = {icon: 'beautify', iconSize: [7,7], borderWidth: 1, borderColor: '#000', backgroundColor: '#fff'};
 // ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#33ff77'}
 // ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#999'}
-ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#ccc'}
+ico2 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 1, borderColor: '#000', backgroundColor: '#eee'}
 
 //ICON FOR FLOAT TRAJECTORY:
 // ico3 = {iconShape: 'circle-dot', borderWidth: 4, borderColor: '#7de0ba'};
