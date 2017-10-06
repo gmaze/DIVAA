@@ -1,17 +1,24 @@
 #!/bin/sh
 #K.BALEM
+# Modified by G. Maze for Argo-France website
 #2017
 ################
 cd bin/
 
 #ARGO INDEX
-#wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt
+wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt
 wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_this_week_prof.txt
 #
 
 #### ARGO7
 echo -n "argo 7 last days ... "
 ./argo_n.sh
+echo "ok"
+echo ""
+
+#### ARGO30 DEEP
+echo -n "argo 30 last days, deep only ..."
+./argo_ndeep.sh
 echo "ok"
 echo ""
 
@@ -36,7 +43,7 @@ echo "ok"
 #write date
 echo "var WDate = \"$dlatest\";"  > ../data/WDate.js
 #clear
-rm ar_index_this_week_prof.txt
+rm ar_index_*
 
 ### copy to webspace
 ./data2ovh.py
