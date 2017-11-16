@@ -1,3 +1,4 @@
+var StartTime = Date.now();
 
 function initDemoMap(){
 //BASE TILE LAYER 1
