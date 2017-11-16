@@ -52,6 +52,12 @@ function initDemoMap(){
   var layerControl = L.control.layers(baseLayers);
   layerControl.addTo(map);
   map.setView([20, -45], 3);
+//MINI MAP
+  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib='Map data &copy; OpenStreetMap contributors';
+  L.tileLayer(osmUrl, {attribution: osmAttrib, id: 'mapbox.streets'}).addTo(map);
+  var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 1, attribution: osmAttrib });
+  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);  
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
 //CREDIT FOR ARGO-FRANCE LOGO
@@ -99,12 +105,17 @@ ico3 = {iconShape: 'doughnut', iconSize: [8,8], iconAnchor: [4,4], borderWidth: 
 
 //TRAJ LAYER, EMPTY AT START
 var majaxLayer=L.layerGroup();
+var majaxLayerLine=L.layerGroup(); 
 map.addLayer(majaxLayer);
+//CADDY LAYER, EMPTY AT START
+var caddyLayer=L.layerGroup();
+map.addLayer(caddyLayer);
+
 //SIDE PANEL
 var sidebar = L.control.sidebar('sidebar', {
   closeButton: true,
   position: 'left',
-  autoPan: 'off'
+  autoPan: false
 });
 map.addControl(sidebar);
 
@@ -125,6 +136,7 @@ $.getJSON('data/aviso.json', function (data) {
   });
   htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
+  console.log("AVISO : " + (Date.now()-StartTime) + "ms");
   map.addLayer(velocityLayer1); //Default display when page loads
 });
 
@@ -144,6 +156,7 @@ $.getJSON('data/aviso_mdt.json', function (data) {
   });
   htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
+  console.log("AVISO MDT : " + (Date.now()-StartTime) + "ms");
 });
 
 // ANDRO
@@ -162,6 +175,7 @@ $.getJSON('data/andro_gm.json', function (data) {
   });
   htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
+  console.log("ANDRO : " + (Date.now()-StartTime) + "ms");
 });
 
 //ARGO DAY
@@ -199,6 +213,7 @@ for (var i = 0; i < mapdata2.length; i++)
 };
 htmlName5='<font color="blue">Argo profiles from the last 7 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
 layerControl.addOverlay(argomarkers2, htmlName5);
+//DEFAULT DISPLAY
 map.addLayer(argomarkers2);
 
 //ARGO 30 DAYS DEEP
@@ -243,8 +258,20 @@ function SubMarkerClick(smarker) {
   trajurl="http://www.ifremer.fr/erddap/tabledap/ArgoFloats.png?longitude,latitude,time&platform_number=%22"+pl+"%22&.draw=linesAndMarkers";
   graphurl="http://www.ifremer.fr/erddap/tabledap/ArgoFloats.graph?temp,pres,psal&time="+ti.substr(0,4)+"-"+ti.substr(4,2)+"-"+ti.substr(6,2)+"T"+ti.substr(8,2)+"%3A"+ti.substr(10,2)+"%3A"+ti.substr(12,2)+"Z&platform_number=%22"+pl+"%22&.draw=linesAndMarkers&.yRange=%7C%7Cfalse";
 
-  //TEST AJAX FOR HIGHCHARTS
-  //tempAjx
+  //AJAX REQUEST FOR PROJECT, PI AND MODEL 
+  $.ajax({
+  url:"http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?project_name%2Cpi_name%2Cplatform_type&platform_number=%22"+pl+"%22&distinct()",
+  dataType: 'jsonp',
+  jsonp: '.jsonp',
+  cache: 'true',
+  success: function (data) {
+        document.getElementById("ajproject").textContent = (data.table.rows[0][0]);
+        document.getElementById("ajpi").textContent = (data.table.rows[0][1]);
+        document.getElementById("ajmodel").textContent = (data.table.rows[0][2]);
+  },
+  type: 'GET'
+  });
+  //AJAX REQUEST FOR TEMPERATURE PROFILE
   $.ajax({
     url:"http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?pres%2Ctemp&platform_number=%22"+pl+"%22&time="+ti.substr(0,4)+"-"+ti.substr(4,2)+"-"+ti.substr(6,2)+"T"+ti.substr(8,2)+"%3A"+ti.substr(10,2)+"%3A"+ti.substr(12,2)+"Z",
     dataType: 'jsonp',
@@ -256,7 +283,7 @@ function SubMarkerClick(smarker) {
   },
   type: 'GET'
   });
-  //psalAjx
+  //AJAX DISPLAY FOR SALINITY DISPLAY
   $.ajax({
   url:"http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?pres%2Cpsal&platform_number=%22"+pl+"%22&time="+ti.substr(0,4)+"-"+ti.substr(4,2)+"-"+ti.substr(6,2)+"T"+ti.substr(8,2)+"%3A"+ti.substr(10,2)+"%3A"+ti.substr(12,2)+"Z",
   dataType: 'jsonp',
@@ -265,19 +292,6 @@ function SubMarkerClick(smarker) {
   success: function (data) {
       optionsS.series[0].data = data.table.rows;
       var chart = new Highcharts.Chart(optionsS);
-  },
-  type: 'GET'
-  });
-  //Project PI Model ajax
-  $.ajax({
-  url:"http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?project_name%2Cpi_name%2Cplatform_type&platform_number=%22"+pl+"%22&distinct()",
-  dataType: 'jsonp',
-  jsonp: '.jsonp',
-  cache: 'true',
-  success: function (data) {
-        document.getElementById("ajproject").textContent = (data.table.rows[0][0]);
-        document.getElementById("ajpi").textContent = (data.table.rows[0][1]);
-        document.getElementById("ajmodel").textContent = (data.table.rows[0][2]);
   },
   type: 'GET'
   });
@@ -325,8 +339,8 @@ function SubMarkerClick(smarker) {
                     };
                     // var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 0}).addTo(majaxLayer);
                     // var mpoly = L.polyline(mlatlon, {color: '#f00', smoothFactor: 0}).addTo(majaxLayer);
-                    var mpoly = L.polyline(mlatlon, {color: '#45f442', weight:3, smoothFactor: 2}).addTo(majaxLayer);
                     var mpoly = L.polyline(mlatlon, {color: '#8efcff', weight:3, smoothFactor: 2}).addTo(majaxLayerLine);
+                    var mpoly = L.polyline(mlatlon, {color: '#45f442', weight:3, smoothFactor: 2}).addTo(majaxLayer);
                   },
       type: 'GET'
     });
