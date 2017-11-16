@@ -1,6 +1,6 @@
 #!/bin/sh
 #K.BALEM
-# Modified by G. Maze for Argo-France website
+# Modified by G. Maze for Argo-France OVH website
 #2017
 ################
 cd bin/

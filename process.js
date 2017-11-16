@@ -54,7 +54,7 @@ function initDemoMap(){
   map.setView([20, -45], 3);
 //MOUSE POSITION BOTTOM LEFT
   L.control.mousePosition().addTo(map);
-//CREDIT FOR LOPS LOGO
+//CREDIT FOR ARGO-FRANCE LOGO
   var credctrl = L.controlCredits({
   image: "dist/ArgoFR_Logo_80.png",
   link: "http://www.argo-france.fr/",
@@ -231,6 +231,7 @@ function SubMarkerClick(smarker) {
   //CLEAR ANY EXISTING TRAJECTORIES IF CLICK OUTSIDE THE PLOTTED TRAJECTORY
   if(smarker.Platform!=pl){
 	majaxLayer.clearLayers();
+	majaxLayerLine.clearLayers();
 	insTraj=0;
   }
   //ERDDAP URLs
@@ -300,7 +301,8 @@ function SubMarkerClick(smarker) {
   //ACCES ERDAPP VIA AJAX FOR TRAJECTORIES AND PROFILES HISTORICAL
   if(insTraj==0){
       $.ajax({
-        url:'http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?time%2Clatitude%2Clongitude&platform_number=%22'+pl+'%22&orderBy(%22time%22)',
+//        url:'http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?time%2Clatitude%2Clongitude&platform_number=%22'+pl+'%22&orderBy(%22time%22)',
+        url:'http://www.ifremer.fr/erddap/tabledap/ArgoFloats.json?time%2Clatitude%2Clongitude&platform_number=%22'+pl+'%22&latitude>=-99.999&latitude<=89.784&longitude>=-179.999&longitude<=180&orderBy(%22time%22)',
         dataType: 'jsonp',
         jsonp: '.jsonp',
         cache: 'true',
@@ -321,8 +323,10 @@ function SubMarkerClick(smarker) {
                       markaj.on('click',L.bind(SubMarkerClick,null,markstruct));
                       markaj.addTo(majaxLayer);
                     };
-                    var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 0}).addTo(majaxLayer);
+                    // var mpoly = L.polyline(mlatlon, {color: '#45f442', smoothFactor: 0}).addTo(majaxLayer);
                     // var mpoly = L.polyline(mlatlon, {color: '#f00', smoothFactor: 0}).addTo(majaxLayer);
+                    var mpoly = L.polyline(mlatlon, {color: '#45f442', weight:3, smoothFactor: 2}).addTo(majaxLayer);
+                    var mpoly = L.polyline(mlatlon, {color: '#8efcff', weight:3, smoothFactor: 2}).addTo(majaxLayerLine);
                   },
       type: 'GET'
     });
@@ -332,15 +336,34 @@ function SubMarkerClick(smarker) {
 sidebar.on('hide', function () {
      map.removeLayer(curmarker);
      majaxLayer.clearLayers();
+     majaxLayerLine.clearLayers();
      insTraj=0;
  });
 
-//SEARCH TOOL
-//IF ARGO7 SELECTED
+//DEFAUT SEARCH BAR
 var controlSearch  = new L.Control.Search({layer: argomarkers2, initial: false, position:'topleft'});
-//IF ARGO DEEP SELECTED
-//var controlSearch = new L.Control.Search({layer: argomarkers3, initial: false, position:'topleft'});
 map.addControl(controlSearch);
+//CHANGE SEARCH LAYER
+map.on('overlayadd', function(eo) {
+	if (eo.name === htmlName4){controlSearch.setLayer(argomarkers);}
+	else if (eo.name === htmlName5){controlSearch.setLayer(argomarkers2);}
+	else if (eo.name === htmlName6){controlSearch.setLayer(argomarkers3);}
+});
+
+//SAVE CADDYLAYER BUTTONS
+var caddybutton = L.easyButton('fa-plus', function(){
+    majaxLayerLine.eachLayer(function (layer) {
+      var cloned = cloneLayer(layer);
+      cloned.addTo(caddyLayer);
+        });
+}).addTo(map);
+
+//CLEAR CADDYLAYER
+L.easyButton('fa-trash', function(){
+    caddyLayer.clearLayers();
+    controlSearch.circleLocation = false;
+}).addTo(map);
+
 
 //CHART OPTIONS
 var optionsT={
