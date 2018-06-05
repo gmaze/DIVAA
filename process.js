@@ -135,13 +135,15 @@ $.getJSON('data/aviso.json', function (data) {
     velocityScale: 0.3
 	// colorScale: palette('tol-sq', 10)
   });
-  htmlName1='<font color="red">Aviso Currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName1='<font color="red">Surface Aviso currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
   console.log("AVISO : " + (Date.now()-StartTime) + "ms");
   map.addLayer(velocityLayer1); //Default display when page loads
 });
 
 // AVISO MDT
+var mdtpal = palette('cb-Reds', 8)
+for (var i = 0; i < mdtpal.length; i+=1){mdtpal[i] = "#" + mdtpal[i]}
 $.getJSON('data/aviso_mdt.json', function (data) {
   var velocityLayer2 = L.velocityLayer({
     displayValues: true,
@@ -152,16 +154,19 @@ $.getJSON('data/aviso_mdt.json', function (data) {
     },
     data: data,
     maxVelocity: 1,
-    velocityScale: 0.3
-	// colorScale: palette('tol-sq', 10)
+    velocityScale: 0.7,
+	colorScale: mdtpal
   });
-  htmlName2='<font color="red">Climatology Aviso mdt-2013</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName2='<font color="red">Surface Aviso mean currents (mdt-2013)</font> <a target="_blank" href="https://www.aviso.altimetry.fr/fr/donnees/produits/produits-auxiliaires/mdt.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer2, htmlName2);
   console.log("AVISO MDT : " + (Date.now()-StartTime) + "ms");
 });
 
-// ANDRO
-$.getJSON('data/andro_gm.json', function (data) {
+
+// ANDRO 1000
+var deepal = palette('cb-BuGn', 8)
+for (var i = 0; i < deepal.length; i+=1){deepal[i] = "#" + deepal[i]}
+$.getJSON('data/andro1000.json', function (data) {
   var velocityLayer3 = L.velocityLayer({
     displayValues: true,
     displayOptions: {
@@ -170,14 +175,38 @@ $.getJSON('data/andro_gm.json', function (data) {
       displayEmptyString: 'No velocity data'
     },
     data: data,
-    maxVelocity: 1,
-    velocityScale: 0.3
-	// colorScale: palette('tol-sq', 10)
+    minVelocity: 0,
+    maxVelocity: 0.075,
+    velocityScale: 5,
+	colorScale: deepal
   });
-  htmlName3='<font color="red">Andro deep velocity</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName3='<font color="red">Andro deep velocity (1000m depth)</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer3, htmlName3);
   console.log("ANDRO : " + (Date.now()-StartTime) + "ms");
 });
+
+// ANDRO 200
+var deepal = palette('cb-Purples', 8)
+for (var i = 0; i < deepal.length; i+=1){deepal[i] = "#" + deepal[i]}
+$.getJSON('data/andro200.json', function (data) {
+  var velocityLayer4 = L.velocityLayer({
+    displayValues: true,
+    displayOptions: {
+      velocityType : 'Andro deep velocity',
+      displayPosition: 'bottomleft',
+      displayEmptyString: 'No velocity data'
+    },
+    data: data,
+    minVelocity: 0,
+    maxVelocity: 0.075,
+    velocityScale: 5,
+	colorScale: deepal
+  });
+  htmlName4='<font color="red">Andro deep velocity (200m depth)</font> <a target="_blank" href="https://wwz.ifremer.fr/lpo/Produits/ANDRO"><img src="dist/info.png" height="15" width="15"></a>'
+  layerControl.addOverlay(velocityLayer4, htmlName4);
+  console.log("ANDRO : " + (Date.now()-StartTime) + "ms");
+});
+
 
 //ARGO DAY
 var mapdata=Data_ARGO;
