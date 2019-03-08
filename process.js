@@ -121,6 +121,7 @@ var sidebar = L.control.sidebar('sidebar', {
 map.addControl(sidebar);
 
 //DATA LAYERS
+
 // AVISO
 $.getJSON('data/aviso.json', function (data) {
   var velocityLayer1 = L.velocityLayer({
@@ -263,6 +264,50 @@ for (var i = 0; i < mapdata3.length; i++)
 };
 htmlName6='<font color="blue">Argo Deep floats profiles from the last 30 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
 layerControl.addOverlay(argomarkers3, htmlName6);
+
+//SST VIA CMEMS WMS
+var wmsLayer0 = L.tileLayer.wms('http://nrt.cmems-du.eu/thredds/wms/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2?', {
+   layers: 'analysed_sst',
+   opacity: 0.35,
+   colorscalerange: '271.0,303.0',
+   abovemaxcolor: "extend",
+   belowmincolor: "extend",
+   numcolorbands: 30,
+   time: yyyy+'-'+mm+'-'+dd+'T12:00:00.000Z',
+   styles: 'boxfill/rainbow'
+});
+htmlsst='<font color="magenta">SST '+yyyy+'-'+mm+'-'+dd+'</font> <a target="_blank" href="http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SST_GLO_SST_L4_NRT_OBSERVATIONS_010_014"><img src="dist/info.png" height="15" width="15"></a>';
+Spansst="<span id='ssttag'>"+htmlsst+"</span>"
+layerControl.addOverlay(wmsLayer0,Spansst,"SST");
+
+//SEA ICE VIA CMEMS WMS
+var wmsLayer1 = L.tileLayer.wms('http://nrt.cmems-du.eu/thredds/wms/METNO-GLO-SEAICE_CONC-NORTH-L4-NRT-OBS?', {
+   layers: 'ice_conc',
+   opacity: 0.35,   
+   colorscalerange: '0.0,99.9',
+   abovemaxcolor: "extend",
+   belowmincolor: "extend",
+   numcolorbands: 30,    
+   time: yyyy+'-'+mm+'-'+dd+'T12:00:00.000Z',
+   styles: 'boxfill/rainbow'
+});
+htmlSI1='<font color="green">Arctic '+yyyy+'-'+mm+'-'+dd+'</font> <a target="_blank" href="http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEAICE_GLO_SEAICE_L4_NRT_OBSERVATIONS_011_001"><img src="dist/info.png" height="15" width="15"></a>';
+SpanSI1="<span id='seaice1tag'>"+htmlSI1+"</span>"
+layerControl.addOverlay(wmsLayer1,SpanSI1,"Sea Ice Concentration");
+//
+var wmsLayer2 = L.tileLayer.wms('http://nrt.cmems-du.eu/thredds/wms/METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS?', {
+    layers: 'ice_conc',
+    opacity: 0.35,
+    colorscalerange: '0.0,99.9',
+    abovemaxcolor: "extend",
+    belowmincolor: "extend",
+    numcolorbands: 30,    
+    time: yyyy+'-'+mm+'-'+dd+'T12:00:00.000Z',
+    styles: 'boxfill/rainbow'    
+});
+htmlSI2='<font color="green">Antarctic '+yyyy+'-'+mm+'-'+dd+'</font> <a target="_blank" href="http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEAICE_GLO_SEAICE_L4_NRT_OBSERVATIONS_011_001"><img src="dist/info.png" height="15" width="15"></a>';
+SpanSI2="<span id='seaice2tag'>"+htmlSI2+"</span>"
+layerControl.addOverlay(wmsLayer2,SpanSI2,"Sea Ice Concentration");
 
 //TRAJ ALREADY PLOTTED, IF insTraj==1 AND CLICK ON TRAJ WE DON'T PLOT THE SAME TRAJECTORY
 insTraj=0;
