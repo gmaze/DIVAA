@@ -29,45 +29,46 @@ for i in range(ny) :
 #evelf=np.array(evelf)
 #nvelf=np.array(nvelf)
 
+
 #HEAD 1
-print '[{'
-print '"header":{'
-print '"parameterUnit" : "m.s-1",'
-print '"parameterNumber" : 2,'
-print '"dx" : 1,'
-print '"dy" : 1,'
-print '"parameterNumberName" : "eastward velocity",'
-print '"la1" : '+str(la1)+','
-print '"lo1" : '+str(lo1)+','
-print '"la2" : '+str(la2)+','
-print '"lo2" : '+str(lo2)+','
-print '"nx" : '+str(nx)+','
-print '"ny" : '+str(ny)+','
-print '"reftime" : "today",'
-print '"parameterCategory" : 2'
-print '},'
+print('[{')
+print('"header":{')
+print('"parameterUnit" : "m.s-1",')
+print('"parameterNumber" : 2,')
+print('"dx" : 1,')
+print('"dy" : 1,')
+print('"parameterNumberName" : "eastward velocity",')
+print('"la1" : '+str(la1)+',')
+print('"lo1" : '+str(lo1)+',')
+print('"la2" : '+str(la2)+',')
+print('"lo2" : '+str(lo2)+',')
+print('"nx" : '+str(nx)+',')
+print('"ny" : '+str(ny)+',')
+print('"reftime" : "today",')
+print('"parameterCategory" : 2')
+print('},')
 #DATA 1
-print '"data":'
-print evelf
-print '},'
+print('"data":')
+print(evelf)
+print('},')
 #HEAD 2
-print '{'
-print '"header":{'
-print '"parameterUnit" : "m.s-1",'
-print '"parameterNumber" : 3,'
-print '"dx" : 1,'
-print '"dy" : 1,'
-print '"parameterNumberName" : "northward velocity",'
-print '"la1" : '+str(la1)+','
-print '"lo1" : '+str(lo1)+','
-print '"la2" : '+str(la2)+','
-print '"lo2" : '+str(lo2)+','
-print '"nx" : '+str(nx)+','
-print '"ny" : '+str(ny)+','
-print '"reftime" : "today",'
-print '"parameterCategory" : 2'
-print '},'
+print('{')
+print('"header":{')
+print('"parameterUnit" : "m.s-1",')
+print('"parameterNumber" : 3,')
+print('"dx" : 1,')
+print('"dy" : 1,')
+print('"parameterNumberName" : "northward velocity",')
+print('"la1" : '+str(la1)+',')
+print('"lo1" : '+str(lo1)+',')
+print('"la2" : '+str(la2)+',')
+print('"lo2" : '+str(lo2)+',')
+print('"nx" : '+str(nx)+',')
+print('"ny" : '+str(ny)+',')
+print('"reftime" : "today",')
+print('"parameterCategory" : 2')
+print('},')
 #DATA 1
-print '"data":'
-print nvelf
-print '}]'
+print('"data":')
+print(nvelf)
+print('}]')
