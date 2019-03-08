@@ -187,7 +187,7 @@ $.getJSON('data/aviso.json', function (data) {
     velocityScale: 0.3
 	// colorScale: palette('tol-sq', 10)
   });
-  htmlName1='<font color="red">Surface Aviso currents from '+WDate+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
+  htmlName1='<font color="red">Surface Aviso currents from '+yyyy+'-'+mm+'-'+dd+'</font> <a target="_blank" href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/global/madt-h-uv.html"><img src="dist/info.png" height="15" width="15"></a>'
   layerControl.addOverlay(velocityLayer1, htmlName1);
   console.log("AVISO : " + (Date.now()-StartTime) + "ms");
   map.addLayer(velocityLayer1); //Default display when page loads
@@ -275,7 +275,7 @@ for (var i = 0; i < mapdata.length; i++)
   marker.on('click',L.bind(SubMarkerClick,null,mapdata[i]));
   marker.addTo(argomarkers);
 };
-htmlName4='<font color="blue">Argo profiles from '+WDate+'</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home/"><img src="dist/info.png" height="15" width="15"></a>'
+htmlName4='<font color="blue">Argo profiles from yesterday ('+yyyy+'-'+mm+'-'+dd+')</font>'
 layerControl.addOverlay(argomarkers, htmlName4);
 
 //ARGO 10 DAYS
@@ -293,7 +293,7 @@ for (var i = 0; i < mapdata2.length; i++)
   marker.on('click',L.bind(SubMarkerClick,null,mapdata2[i]));
   marker.addTo(argomarkers2);
 };
-htmlName5='<font color="blue">Argo profiles from the last 7 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
+htmlName5='<font color="blue">Argo profiles from the last 10 days</font>'
 layerControl.addOverlay(argomarkers2, htmlName5);
 //DEFAULT DISPLAY
 map.addLayer(argomarkers2);
@@ -313,7 +313,7 @@ for (var i = 0; i < mapdata3.length; i++)
   marker.on('click',L.bind(SubMarkerClick,null,mapdata3[i]));
   marker.addTo(argomarkers3);
 };
-htmlName6='<font color="blue">Argo Deep floats profiles from the last 30 days</font> <a target="_blank" href="http://www.umr-lops.fr/SO-Argo/Home"><img src="dist/info.png" height="15" width="15"></a>'
+htmlName6='<font color="blue">Argo Deep floats profiles from the last 30 days</font>'
 layerControl.addOverlay(argomarkers3, htmlName6);
 
 
