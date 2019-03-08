@@ -9,14 +9,15 @@ tempdir="temp_"`date +%H%M%S`
 mkdir $tempdir
 #dates
 dati=".nc,"`date -d"2 days ago" +%Y%m%d`
-NN=9 #9-3 + 1 = 7 DAYS
+# NN=9 #9-3 + 1 = 7 DAYS
+NN=11 #11-3 + 1 = 10 DAYS
 for ((o=3; o<=$NN; o++))
 do
 dati=$dati"|.nc,"`date -d"$o days ago" +%Y%m%d`
 done
 echo $dati
 #
-NAME='ARGO7'
+NAME='ARGO10'
 outf=$NAME.js
 ###### GLOBAL ########
 #Selection du type de données dans le fichier source

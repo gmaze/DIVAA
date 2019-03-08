@@ -10,37 +10,41 @@ wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt
 wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_this_week_prof.txt
 #
 
-#### ARGO7
-echo -n "argo 7 last days ... "
+#### ARGO10
+echo -n "LOADING LAST 10 DAYS OF ARGO DATA ..."
+echo ""
 ./argo_n.sh
-echo "ok"
+echo -n "ok"
 echo ""
 
 #### ARGO30 DEEP
-echo -n "argo 30 last days, deep only ..."
+echo -n "LOADING LAST 30 DAYS OF DEEP ARGO DATA ..."
+echo ""
 ./argo_ndeep.sh
 echo "ok"
 echo ""
 
 ### AVISO CURRENTS
-echo -n "aviso currents last file : "
+echo -n "LOADING LAST AVISO CURRENTS ..."
+echo ""
 #FIND LAST AVISO FILE
-# latest=`ls -1 /home5/pharos/REFERENCE_DATA/ALTIMETRY/DATA/NRT/dataset-duacs-nrt-global-merged-allsat-phy-l4-v3/ | tail -4 | head -1`
 latest=`ls -1 /home5/pharos/REFERENCE_DATA/ALTIMETRY/DATA/NRT/dataset-duacs-nrt-global-merged-allsat-phy-l4/*/*/*.nc | tail -2 | head -1`
-echo $latest
+echo -n $latest
 #FULL FILE
 flatest=$latest
 #DATE OF DATA
-dlatest=`echo $latest | awk -F"_" '{print $6}'`
+dlatest=`echo $latest | awk -F"_" '{print $7}'`
 echo -n "... "
 ./aviso2json.sh $flatest
-echo "ok"
+echo ""
+echo -n "DATE ASSIGNED TO THESE DATA: $dlatest"
+echo -n "ok"
 echo ""
 
 ### ARGO DATE
-echo -n "argo $dlatest ... "
+echo -n "ARGO FOR $dlatest ... "
 ./argo_pr.sh $dlatest
-echo "ok"
+echo -n "ok"
 #write date
 echo "var WDate = \"$dlatest\";"  > ../data/WDate.js
 #clear
