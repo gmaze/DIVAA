@@ -1,4 +1,11 @@
 var StartTime = Date.now();
+var today = new Date();
+var dd = today.getDate() - 1;
+if(dd<10){dd='0'+dd.toString();} else{dd=dd.toString();}
+var mm = today.getMonth() + 1; //January is 0!
+if(mm<10){mm='0'+mm.toString();} else{mm=mm.toString();}
+var yyyy = today.getFullYear();
+yyyy=yyyy.toString()
 
 function initDemoMap(){
 //BASE TILE LAYER 1
