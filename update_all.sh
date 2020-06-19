@@ -1,7 +1,8 @@
 #!/bin/sh
 #K.BALEM
 # Modified by G. Maze for Argo-France OVH website
-#2017
+# Modified by G. Maze for Argo-France IUEM website
+#2020
 ################
 cd bin/
 
@@ -51,7 +52,8 @@ echo "var WDate = \"$dlatest\";"  > ../data/WDate.js
 rm ar_index_*
 
 ### copy to webspace
-./data2ovh.py
+#./data2ovh.py
+./data2iuem.sh
 ./data2gstore.sh
 
 ##
