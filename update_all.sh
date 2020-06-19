@@ -15,6 +15,7 @@ wget ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt
 echo -n "LOADING LAST 10 DAYS OF ARGO DATA ..."
 echo ""
 ./argo_n.sh
+./shields_count.sh
 echo -n "ok"
 echo ""
 
