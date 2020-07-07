@@ -386,8 +386,8 @@ function SubMarkerClick(smarker) {
   "<b>PROJECT : </b><span id=\"ajproject\"></span>" + "<br>" +
   "<b><span class='glyphicon glyphicon-nameplate'></span>PI : </b><span id=\"ajpi\"></span>" + "<br>" +
   "<b>FLOAT MODEL : </b><span id=\"ajmodel\"></span>" + "<br>" +
-  "<b><span class='glyphicon glyphicon-link'></span><a href='" + graphurl + "' target='blank'>ACCESS TO PROFILE DATA (Euro-Argo dashboard)</a></b>" + "<br>" +
-  "<b><span class='glyphicon glyphicon-link'></span><a href='https://fleetmonitoring.euro-argo.eu/float/" + pl + "' target='blank'>ACCESS TO FLOAT MONITORING DATA (Coriolis)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='" + graphurl + "' target='blank'>ACCESS TO PROFILE DATA (Ifremer erddap)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='https://fleetmonitoring.euro-argo.eu/float/" + pl + "' target='blank'>ACCESS TO FLOAT MONITORING DATA (Euro-Argo dashboard)</a></b>" + "<br>" +
   //HIGHCHARTS
   "<br><div id=\"containerT\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>" +
   "<br><div id=\"containerS\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>"
