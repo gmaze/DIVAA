@@ -380,14 +380,14 @@ function SubMarkerClick(smarker) {
   });
 
   //
-  sidebar.setContent("<b>FLOAT WMO : </b><a href='http://www.ifremer.fr/argoMonitoring/float/"+ pl + "' target='blank'>" + pl + "</a><br>" +
+  sidebar.setContent("<b>FLOAT WMO : </b><a href='https://fleetmonitoring.euro-argo.eu/float/"+ pl + "' target='blank'>" + pl + "</a><br>" +
   "<b><span class='glyphicon glyphicon-important-day'></span>PROFILE DATE : </b>" + ti.substr(0,4)+"."+ti.substr(4,2)+"."+ti.substr(6,2)+"  "+ti.substr(8,2)+":"+ti.substr(10,2)+":"+ti.substr(12,2)+ "<br>" +
   "<b><span class='glyphicon glyphicon-database'></span>DAC : </b>" + inst + "<br>" +
   "<b>PROJECT : </b><span id=\"ajproject\"></span>" + "<br>" +
   "<b><span class='glyphicon glyphicon-nameplate'></span>PI : </b><span id=\"ajpi\"></span>" + "<br>" +
   "<b>FLOAT MODEL : </b><span id=\"ajmodel\"></span>" + "<br>" +
-  "<b><span class='glyphicon glyphicon-link'></span><a href='" + graphurl + "' target='blank'>ACCESS TO PROFILE DATA (erddap Ifremer)</a></b>" + "<br>" +
-  "<b><span class='glyphicon glyphicon-link'></span><a href='http://www.ifremer.fr/argoMonitoring/float/" + pl + "' target='blank'>ACCESS TO FLOAT MONITORING DATA (Coriolis)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='" + graphurl + "' target='blank'>ACCESS TO PROFILE DATA (Euro-Argo dashboard)</a></b>" + "<br>" +
+  "<b><span class='glyphicon glyphicon-link'></span><a href='https://fleetmonitoring.euro-argo.eu/float/" + pl + "' target='blank'>ACCESS TO FLOAT MONITORING DATA (Coriolis)</a></b>" + "<br>" +
   //HIGHCHARTS
   "<br><div id=\"containerT\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>" +
   "<br><div id=\"containerS\" style=\"min-width: 310px; height: 450px; max-width: 400px; margin: 0 auto\"></div><br>"
