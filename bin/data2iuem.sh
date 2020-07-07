@@ -4,7 +4,7 @@
 #
 source ~/.bashrc
 
-# Send files to Google Storage:
+# Send files to IUEM:
 scp ../data/WDate.js 7iuem141-by-polaris:/home/whuman/divaa/data/WDate.js
 scp ../data/aviso.json 7iuem141-by-polaris:/home/whuman/divaa/data/aviso.json
 scp ../data/ARGO.js 7iuem141-by-polaris:/home/whuman/divaa/data/ARGO.js

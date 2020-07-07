@@ -11,8 +11,8 @@ UC=fh.variables['ugos'][:]
 VC=fh.variables['vgos'][:]
 fh.close()
 
-lo1=0
-lo2=360
+lo1=-179.75
+lo2=180
 nx=1440
 la1=90
 la2=-90
